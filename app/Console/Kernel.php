@@ -27,5 +27,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->job(Jobs\Furnace\NotifyTemperatureHigh::class)->everyMinute();
         $schedule->job(Jobs\Furnace\NotifyTemperatureLow::class)->everyMinute();
+        $schedule->job(Jobs\Furnace\NotifyTemperatureReady::class)->everyMinute();
     }
 }
