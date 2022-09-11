@@ -17,7 +17,7 @@ class ApiKey
     public function handle(Request $request, Closure $next): mixed
     {
         if ($request->get('api') != config('app.api_key')) {
-            return response()->setStatusCode(403)->json('Invalid API key');
+            return response('Invalid API key', 403);
         }
 
         return $next($request);

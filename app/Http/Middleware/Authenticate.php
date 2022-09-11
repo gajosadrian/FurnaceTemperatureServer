@@ -37,7 +37,7 @@ class Authenticate
     public function handle(Request $request, Closure $next, string $guard = null): mixed
     {
         if ($this->auth->guard($guard)->guest()) {
-            return response()->setStatusCode(401)->json('Unauthorized');
+            return response('Unauthorized', 401);
         }
 
         return $next($request);

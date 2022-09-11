@@ -10,12 +10,12 @@ class FurnaceTemperatureController extends Controller
 {
     public function __construct(protected FurnaceService $furnaceService)
     {
+        $this->middleware('auth:api', ['only' => 'show']);
+        $this->middleware('api_key', ['only' => 'store']);
     }
 
     public function show()
     {
-        $this->middleware('auth:api');
-
         try {
             $temperature = $this->furnaceService->getTemperature();
         } catch (Exception $e) {
@@ -28,8 +28,6 @@ class FurnaceTemperatureController extends Controller
 
     public function store(Request $request)
     {
-        $this->middleware('api_key');
-
         $data = $this->validate($request, [
             'temperature' => 'required|numeric',
         ]);
