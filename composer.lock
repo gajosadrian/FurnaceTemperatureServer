@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c9fc0688aa56812c8d029ad9cb5ac392",
+    "content-hash": "d8b6fb2cdeb6ee8bd461e8a5db0fb028",
     "packages": [
         {
             "name": "brick/math",
@@ -3377,6 +3377,53 @@
                 }
             ],
             "time": "2022-08-05T17:58:37+00:00"
+        },
+        {
+            "name": "simonbackx/slack-php-webhook",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SimonBackx/Slack-PHP-Webhook.git",
+                "reference": "7972d875c71b88714c75cf2cab7f7e68dbf4aed9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SimonBackx/Slack-PHP-Webhook/zipball/7972d875c71b88714c75cf2cab7f7e68dbf4aed9",
+                "reference": "7972d875c71b88714c75cf2cab7f7e68dbf4aed9",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "slack.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simon Backx",
+                    "email": "hi@simonbackx.com",
+                    "homepage": "https://www.simonbackx.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Post messages to your Slack channels with this easy to use library.",
+            "homepage": "https://github.com/SimonBackx/Slack-PHP-Webhook",
+            "keywords": [
+                "channels",
+                "logging",
+                "message",
+                "slack",
+                "webhook"
+            ],
+            "support": {
+                "issues": "https://github.com/SimonBackx/Slack-PHP-Webhook/issues",
+                "source": "https://github.com/SimonBackx/Slack-PHP-Webhook"
+            },
+            "time": "2018-06-12T09:18:00+00:00"
         },
         {
             "name": "stella-maris/clock",

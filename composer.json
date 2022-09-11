@@ -12,6 +12,7 @@
         "php": "^8.1",
         "flipbox/lumen-generator": "^9.1",
         "laravel/lumen-framework": "^9.0",
+        "simonbackx/slack-php-webhook": "^1.0",
         "tymon/jwt-auth": "1.*"
     },
     "require-dev": {

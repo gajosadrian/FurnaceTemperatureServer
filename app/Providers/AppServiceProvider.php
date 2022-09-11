@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Services\FurnaceService;
+use App\Services\SlackService;
 use Illuminate\Support\ServiceProvider;
+use Slack;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(FurnaceService::class, function () {
             return new FurnaceService(config('furnace.temperature_cache_key'));
+        });
+
+        $this->app->singleton(SlackService::class, function () {
+            return new SlackService(new Slack(config('slack.webhook_url')));
         });
     }
 }
