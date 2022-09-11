@@ -23,7 +23,7 @@ class SlackService
         $slackMessage->setText($message);
 
         if (!$slackMessage->send()) {
-            throw new Exception('Failed to send SlackService Message');
+            throw new Exception('Failed to send SlackMessage');
         }
     }
 }
