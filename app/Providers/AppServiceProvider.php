@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use App\Services\FurnaceService;
 use App\Services\SlackService;
+use App\Services\Weather\OpenWeatherMap;
+use App\Services\Weather\WeatherInterface;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 use Slack;
 
@@ -21,7 +25,12 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(SlackService::class, function () {
-            return new SlackService(new Slack(config('slack.webhook_url')));
+            $slack = new Slack(config('slack.webhook_url'));
+            return new SlackService($slack);
+        });
+
+        $this->app->singleton(WeatherInterface::class, function () {
+            return new OpenWeatherMap(config('openweathermap.api_key'), config('app.locale'));
         });
     }
 }

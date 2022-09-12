@@ -61,6 +61,7 @@ $app->singleton(
 
 $app->configure('app');
 $app->configure('furnace');
+$app->configure('openweathermap');
 $app->configure('slack');
 $app->configure('auth');
 $app->configure('jwt');
