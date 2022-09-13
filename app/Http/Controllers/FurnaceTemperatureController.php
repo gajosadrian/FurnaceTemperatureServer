@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\FurnaceService;
+use App\Services\Furnace\FurnaceService;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -32,7 +32,7 @@ class FurnaceTemperatureController extends Controller
             'temperature' => 'required|numeric',
         ]);
 
-        $this->furnaceService->rememberTemperature($data['temperature']);
+        $this->furnaceService->registerTemperature($data['temperature']);
 
         return response()->json('success');
     }

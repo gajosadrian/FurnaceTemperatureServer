@@ -16,6 +16,7 @@ Route::group(['prefix' => 'api'], function ($router) {
 
     $router->get('furnace/temperature', 'FurnaceTemperatureController@show');
     $router->post('furnace/temperature', 'FurnaceTemperatureController@store');
+    $router->get('furnace/mode', 'FurnaceModeController@show');
 
     $router->get('weather/lat-lng', 'WeatherController@latLng');
 });

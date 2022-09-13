@@ -3,9 +3,8 @@
 namespace App\Jobs\Furnace;
 
 use App\Jobs\Job;
-use App\Services\FurnaceService;
+use App\Services\Furnace\FurnaceService;
 use App\Services\SlackService;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 
 class NotifyTemperatureLow extends Job
@@ -19,7 +18,7 @@ class NotifyTemperatureLow extends Job
      */
     public function __construct(protected FurnaceService $furnaceService)
     {
-        $this->minTemperature = 20;
+        $this->minTemperature = config('furnace.temperature.min');
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace App\Jobs\Furnace;
 
 use App\Jobs\Job;
-use App\Services\FurnaceService;
+use App\Services\Furnace\FurnaceService;
 use App\Services\SlackService;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -19,7 +19,7 @@ class NotifyTemperatureHigh extends Job
      */
     public function __construct(protected FurnaceService $furnaceService)
     {
-        $this->maxTemperature = 100;
+        $this->maxTemperature = config('furnace.temperature.max');
     }
 
     /**

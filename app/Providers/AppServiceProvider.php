@@ -2,12 +2,10 @@
 
 namespace App\Providers;
 
-use App\Services\FurnaceService;
+use App\Services\Furnace\FurnaceService;
 use App\Services\SlackService;
 use App\Services\Weather\OpenWeatherMap;
 use App\Services\Weather\WeatherInterface;
-use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 use Slack;
 
@@ -21,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(FurnaceService::class, function () {
-            return new FurnaceService(config('furnace.temperature_cache_key'));
+            return new FurnaceService(config('furnace.temperature.cache_key'), config('furnace.mode.cache_key'));
         });
 
         $this->app->singleton(SlackService::class, function () {

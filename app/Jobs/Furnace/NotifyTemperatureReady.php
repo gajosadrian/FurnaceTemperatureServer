@@ -3,9 +3,8 @@
 namespace App\Jobs\Furnace;
 
 use App\Jobs\Job;
-use App\Services\FurnaceService;
+use App\Services\Furnace\FurnaceService;
 use App\Services\SlackService;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 
 class NotifyTemperatureReady extends Job
@@ -20,8 +19,8 @@ class NotifyTemperatureReady extends Job
      */
     public function __construct(protected FurnaceService $furnaceService)
     {
-        $this->minTemperature = 20;
-        $this->optimalTemperature = 40;
+        $this->minTemperature = config('furnace.temperature.min');
+        $this->optimalTemperature = config('furnace.temperature.ready');
     }
 
     /**
