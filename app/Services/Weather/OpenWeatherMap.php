@@ -2,7 +2,9 @@
 
 namespace App\Services\Weather;
 
+use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class OpenWeatherMap implements WeatherInterface
@@ -21,19 +23,24 @@ class OpenWeatherMap implements WeatherInterface
      */
     public function getWeather(float $lat, float $lng): WeatherData
     {
-        $res = Http::get(static::BASE_URL . '/weather', [
-            'lat' => $lat,
-            'lon' => $lng,
-            'units' => 'metric',
-            'lang' => $this->locale,
-            'appid' => $this->apiKey,
-        ]);
+        $cacheKey = static::class . "_getWeather_{$lat}_{$lng}";
+        $rememberTo = Carbon::now()->addMinutes(5);
 
-        if ($res->failed()) {
-            throw new Exception('Failed to connect to the' . static::BASE_URL);
-        }
+        $data = Cache::remember($cacheKey, $rememberTo, function () use ($lat, $lng) {
+            $res = Http::get(static::BASE_URL . '/weather', [
+                'lat' => $lat,
+                'lon' => $lng,
+                'units' => 'metric',
+                'lang' => $this->locale,
+                'appid' => $this->apiKey,
+            ]);
 
-        $data = $res->json();
+            if ($res->failed()) {
+                throw new Exception('Failed to connect to the ' . static::BASE_URL);
+            }
+
+            return $res->json();
+        });
 
         $weatherData = new WeatherData;
         $weatherData->temperature = $data['main']['temp'];
