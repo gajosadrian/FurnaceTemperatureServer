@@ -4,7 +4,7 @@ return [
     'temperature' => [
         'cache_key' => 'furnace.temperature',
         'max' => 80,
-        'min' => 20,
+        'min' => 30,
         'ready' => 40,
     ],
 
