@@ -11,4 +11,8 @@ return [
     'mode' => [
         'cache_key' => 'furnace.mode',
     ],
+
+    'notification' => [
+        'between' => ['8:00', '23:00'],
+    ],
 ];
