@@ -2,14 +2,16 @@
 
 namespace App\Jobs\Furnace;
 
+use App\Facades\Setting\FurnaceSetting;
 use App\Jobs\Job;
+use App\Services\Furnace\Enums\FurnaceHeatingType;
 use App\Services\Furnace\FurnaceService;
 use App\Services\SlackService;
 use Illuminate\Support\Facades\Cache;
 
 class NotifyTemperatureLow extends Job
 {
-    protected float $minTemperature;
+    protected ?float $minTemperature;
 
     /**
      * Create a new job instance.
@@ -18,7 +20,8 @@ class NotifyTemperatureLow extends Job
      */
     public function __construct(protected FurnaceService $furnaceService)
     {
-        $this->minTemperature = config('furnace.temperature.min');
+        $mode = FurnaceSetting::getHeatingMode();
+        $this->minTemperature = FurnaceSetting::getTemperature($mode, FurnaceHeatingType::MIN);
     }
 
     /**
@@ -35,7 +38,7 @@ class NotifyTemperatureLow extends Job
             return;
         }
 
-        if ($currentTemperature > $this->minTemperature) {
+        if (is_null($this->minTemperature) or $currentTemperature > $this->minTemperature) {
             $this->unlockJob();
             return;
         }

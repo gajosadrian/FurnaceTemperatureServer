@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(FurnaceService::class, function () {
-            return new FurnaceService(config('furnace.temperature.cache_key'), config('furnace.mode.cache_key'));
+            return new FurnaceService('furnace.temperature', 'furnace.mode', 'furnace.start_at');
         });
 
         $this->app->singleton(SlackService::class, function () {

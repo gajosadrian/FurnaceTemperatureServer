@@ -7,10 +7,9 @@ use App\Services\Furnace\FurnaceService;
 use App\Services\SlackService;
 use Illuminate\Support\Facades\Cache;
 
-class NotifyTemperatureReady extends Job
+class NotifyFurnaceStarted extends Job
 {
-    protected float $minTemperature;
-    protected float $optimalTemperature;
+    protected float $startTemperature;
 
     /**
      * Create a new job instance.
@@ -19,8 +18,7 @@ class NotifyTemperatureReady extends Job
      */
     public function __construct(protected FurnaceService $furnaceService)
     {
-        $this->minTemperature = config('furnace.temperature.min');
-        $this->optimalTemperature = config('furnace.temperature.ready');
+        $this->startTemperature = config('furnace.temperature.start');
     }
 
     /**
@@ -37,7 +35,7 @@ class NotifyTemperatureReady extends Job
             return;
         }
 
-        if ($currentTemperature <= $this->minTemperature) {
+        if ($currentTemperature < $this->startTemperature) {
             $this->unlockJob();
             return;
         }
@@ -46,9 +44,9 @@ class NotifyTemperatureReady extends Job
             return;
         }
 
-        if ($currentTemperature >= $this->optimalTemperature) {
+        if ($currentTemperature >= $this->startTemperature) {
             try {
-                $slackService->sendMessage("Piec rozgrzał się: {$currentTemperature} °C");
+                $slackService->sendMessage("Piec uruchomił się: {$currentTemperature} °C");
                 $this->lockJob();
             } catch (\Exception $e) {
             }

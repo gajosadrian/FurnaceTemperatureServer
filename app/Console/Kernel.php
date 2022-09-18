@@ -36,7 +36,7 @@ class Kernel extends ConsoleKernel
             ->everyMinute()
             ->between($between[0], $between[1]);
 
-        $schedule->job(Jobs\Furnace\NotifyTemperatureReady::class)
+        $schedule->job(Jobs\Furnace\NotifyFurnaceStarted::class)
             ->everyMinute()
             ->between($between[0], $between[1]);
     }

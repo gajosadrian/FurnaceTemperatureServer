@@ -2,7 +2,9 @@
 
 namespace App\Jobs\Furnace;
 
+use App\Facades\Setting\FurnaceSetting;
 use App\Jobs\Job;
+use App\Services\Furnace\Enums\FurnaceHeatingType;
 use App\Services\Furnace\FurnaceService;
 use App\Services\SlackService;
 use Illuminate\Support\Carbon;
@@ -10,7 +12,7 @@ use Illuminate\Support\Facades\Cache;
 
 class NotifyTemperatureHigh extends Job
 {
-    protected float $maxTemperature;
+    protected ?float $maxTemperature;
 
     /**
      * Create a new job instance.
@@ -19,7 +21,8 @@ class NotifyTemperatureHigh extends Job
      */
     public function __construct(protected FurnaceService $furnaceService)
     {
-        $this->maxTemperature = config('furnace.temperature.max');
+        $mode = FurnaceSetting::getHeatingMode();
+        $this->maxTemperature = FurnaceSetting::getTemperature($mode, FurnaceHeatingType::MAX);
     }
 
     /**
@@ -36,7 +39,7 @@ class NotifyTemperatureHigh extends Job
             return;
         }
 
-        if ($currentTemperature < $this->maxTemperature) {
+        if (is_null($this->maxTemperature) or $currentTemperature < $this->maxTemperature) {
             $this->unlockJob();
             return;
         }
@@ -47,7 +50,7 @@ class NotifyTemperatureHigh extends Job
 
         if ($currentTemperature >= $this->maxTemperature) {
             try {
-                $slackService->sendMessage("Temperatura pieca za duża: {$currentTemperature} °C");
+                $slackService->sendMessage("⚠️ Temperatura pieca za duża: {$currentTemperature} °C");
                 $this->lockJob();
             } catch (\Exception $e) {
             }

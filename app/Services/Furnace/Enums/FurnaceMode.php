@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Furnace;
+namespace App\Services\Furnace\Enums;
 
 enum FurnaceMode: string
 {
