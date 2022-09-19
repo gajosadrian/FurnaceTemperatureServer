@@ -22,7 +22,7 @@ Route::group(['prefix' => 'api'], function ($router) {
      */
     $router->get('furnace/temperature', 'FurnaceTemperatureController@show');
     $router->post('furnace/temperature', 'FurnaceTemperatureController@store');
-    $router->get('furnace/mode', 'FurnaceController@show');
+    $router->get('furnace/mode', 'FurnaceController@mode');
     $router->get('furnace/start-time', 'FurnaceController@startTime');
 
     /**
