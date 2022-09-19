@@ -19,7 +19,7 @@ class FurnaceTemperatureController extends Controller
         try {
             $temperature = $this->furnaceService->getTemperature();
         } catch (Exception $e) {
-            abort(500, $e->getMessage());
+            abort(503, $e->getMessage());
             exit;
         }
 

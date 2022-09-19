@@ -25,7 +25,7 @@ class FurnaceController extends Controller
         try {
             $startAt = $this->furnaceService->getStartTime();
         } catch (Exception $e) {
-            abort(500, $e->getMessage());
+            abort(503, $e->getMessage());
             exit;
         }
 
